@@ -77,13 +77,14 @@
 
 // export default App;
 
-import './styles/App.css';
+
 import React, { useState } from 'react';
+import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [text, setText] = useState('');
-  const [radio, setRadio] = useState('1');
+  const [radio, setRadio] = useState('');
   const [checkbox, setCheckbox] = useState([false, false, false]);
 
   const handleTextChange = (event) => {
@@ -95,9 +96,9 @@ function App() {
   };
 
   const handleCheckboxChange = (event) => {
-    const { value, checked } = event.target;
+    const index = parseInt(event.target.value) - 1;
     const updatedCheckbox = [...checkbox];
-    updatedCheckbox[value - 1] = checked;
+    updatedCheckbox[index] = event.target.checked;
     setCheckbox(updatedCheckbox);
   };
 
@@ -222,10 +223,11 @@ function App() {
             {radio}
           </p>
           <p className="checkbox">
-            <span className="title">Checkbox : </span>
-            {checkbox.map((checked, index) => (
-              <span key={index}>{checked ? `[${index + 1}] ` : ''}</span>
+            <span className="title">Checkbox : </span> [ 
+            {checkbox.map((isChecked, index) => (
+              <span key={index}>{isChecked ? ` ${index + 1} ` : ''}</span>
             ))}
+            ]
           </p>
         </div>
       </div>
@@ -234,4 +236,3 @@ function App() {
 }
 
 export default App;
-
